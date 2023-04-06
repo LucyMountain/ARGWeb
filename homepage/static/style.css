@@ -1,0 +1,46 @@
+:root {
+
+  --a:#e4e3df;
+  --b:#857360;
+  --c:#b94146;
+  --d:#718c9f;
+  --e:#4c4f36;
+  --f:#2d2f20;
+
+  --bar_colour:var(--e);
+  --button_colour:var(--c);
+  --text_colour:var(--a);
+  --background_colour:var(--b);
+  --content_colour:var(--d);
+  --content_colour_2:var(--f);
+}
+
+body {
+  margin:0em;
+}
+li {
+  display: inline-block;
+  font-size: 1.5em;
+  list-style-type: none;
+  padding: 1em;
+  text-transform: uppercase;
+}
+
+li span {
+  display: block;
+  font-size: 4.5rem;
+}
+
+@media all and (max-width: 768px) {
+  h1 {
+    font-size: calc(1.5rem * var(--smaller));
+  }
+
+  li {
+    font-size: calc(1.125rem * var(--smaller));
+  }
+
+  li span {
+    font-size: calc(3.375rem * var(--smaller));
+  }
+}
