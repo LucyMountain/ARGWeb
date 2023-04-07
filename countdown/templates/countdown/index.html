@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block scripts %}
 {% endblock scripts %}
@@ -6,6 +7,9 @@
 {% block title %}Countdown{% endblock title %}
 
 {% block content %}
+    <video autoplay muted loop id="myVideo">
+    <source src="{% static 'code.mp4' %}" type="video/mp4">
+    </video>
     <div class="timer">
     <h1>Countdown Clock</h1>
     <div id="clockdiv">
