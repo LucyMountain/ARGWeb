@@ -48,7 +48,7 @@ if DJANGO_CONFIGURATION == 'Dev':
 else:
     # !!! USE THIS CONFIGURATION FOR PRODUCTION !!!
     DEBUG = False
-    ALLOWED_HOSTS = ['mammath.org']
+    ALLOWED_HOSTS = ['01111000.org', 'mammath.org']
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_SSL_REDIRECT = True
