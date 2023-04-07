@@ -6,52 +6,53 @@
 {% block title %}Countdown{% endblock title %}
 
 {% block content %}
-    {{ counter }}
-    <div id="countdown">
-        <div id='tiles'></div>
-        <div class="labels">
-            <li>Days</li>
-            <li>Hours</li>
-            <li>Mins</li>
-            <li>Secs</li>
-        </div>
+    <div class="timer">
+    <h1>Countdown Clock</h1>
+    <div id="clockdiv">
+      <div>
+        <span class="days" id="day"></span>
+        <div class="smalltext">Days</div>
+      </div>
+      <div>
+        <span class="hours" id="hour"></span>
+        <div class="smalltext">Hours</div>
+      </div>
+      <div>
+        <span class="minutes" id="minute"></span>
+        <div class="smalltext">Minutes</div>
+      </div>
+      <div>
+        <span class="seconds" id="second"></span>
+        <div class="smalltext">Seconds</div>
+      </div>
     </div>
+    </div>
+
+    <p id="demo"></p>
+
+    <script>
+
+        var deadline = new Date("apr 10, 2023 15:37:25").getTime();
+
+        var x = setInterval(function() {
+
+        var now = new Date().getTime();
+        var t = deadline - now;
+        var days = Math.floor(t / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((t%(1000 * 60 * 60 * 24))/(1000 * 60 * 60));
+        var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((t % (1000 * 60)) / 1000);
+        document.getElementById("day").innerHTML =days ;
+        document.getElementById("hour").innerHTML =hours;
+        document.getElementById("minute").innerHTML = minutes;
+        document.getElementById("second").innerHTML =seconds;
+        if (t < 0) {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = "TIME UP";
+                document.getElementById("day").innerHTML ='0';
+                document.getElementById("hour").innerHTML ='0';
+                document.getElementById("minute").innerHTML ='0' ;
+                document.getElementById("second").innerHTML = '0'; }
+        }, 1000);
+    </script>
 {% endblock content %}
-
-<script>
-var countDownDate = new Date().getTime() + (1000*3600*48);
-//var countDownDate = new Date("July 8, 2018 15:37:25").getTime(); // set the countdown date
-console.log(countDownDate)
-var days, hours, minutes, seconds; // variables for time units
-
-var countdown = document.getElementById("tiles"); // get tag element
-
-getCountdown();
-
-setInterval(function() {
-  getCountdown();
-}, 1000);
-
-function getCountdown() {
-
-  // find the amount of "seconds" between now and target
-  var current_date = new Date().getTime();
-  var seconds_left = (countDownDate - current_date) / 1000;
-
-  days = pad(parseInt(seconds_left / 86400));
-  seconds_left = seconds_left % 86400;
-
-  hours = pad(parseInt(seconds_left / 3600));
-  seconds_left = seconds_left % 3600;
-
-  minutes = pad(parseInt(seconds_left / 60));
-  seconds = pad(parseInt(seconds_left % 60));
-
-  // format countdown string + set tag value
-  countdown.innerHTML = "<span>" + days + "</span><span>" + hours + "</span><span>" + minutes + "</span><span>" + seconds + "</span>";
-}
-
-function pad(n) {
-  return (n < 10 ? '0' : '') + n;
-}
- </script>
