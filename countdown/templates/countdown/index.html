@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block scripts %}
+
 {% endblock scripts %}
 
 {% block title %}Countdown{% endblock title %}
@@ -11,7 +12,12 @@
     <source src="{% static 'code.mp4' %}" type="video/mp4">
     </video>
     <div class="timer">
-    <h1>Everywhere</h1>
+    <div class="slidingVertical">
+      <span>Everywhere</span>
+      <span>Nowhere</span>
+      <span>Everyone</span>
+      <span>Noone</span>
+    </div>
     <div id="clockdiv">
       <div>
         <span class="days" id="day"></span>
