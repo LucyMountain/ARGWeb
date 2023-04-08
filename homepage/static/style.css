@@ -1,18 +1,10 @@
 :root {
 
-  --a:#e4e3df;
-  --b:#857360;
-  --c:#b94146;
-  --d:#718c9f;
-  --e:#4c4f36;
-  --f:#2d2f20;
+  --background:#9ac7da;
+  --text:#ebf4f8;
+  --number_background:#8bb3c4;
+  --number_background:#68a0a6;
 
-  --bar_colour:var(--e);
-  --button_colour:var(--c);
-  --text_colour:var(--a);
-  --background_colour:var(--b);
-  --content_colour:var(--d);
-  --content_colour_2:var(--f);
 }
 
 body {
@@ -38,12 +30,12 @@ body {
 }
 timer{
     text-align: center;
-    background: #00ECB9;
+    background: var(--background);
   font-family: sans-serif;
   font-weight: 100;
 }
 h1{
-  color: #396;
+  color: #fff;
   font-weight: 100;
   font-size: 40px;
   margin: 40px 0px 20px;
@@ -59,13 +51,13 @@ h1{
 #clockdiv > div{
     padding: 10px;
     border-radius: 3px;
-    background: #00BF96;
+    background: #fff;
     display: inline-block;
 }
 #clockdiv div > span{
     padding: 15px;
     border-radius: 3px;
-    background: #00816A;
+    background: #000;
     display: inline-block;
 }
 smalltext{
