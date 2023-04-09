@@ -60,19 +60,19 @@
             document.getElementById("second").innerHTML = seconds;
             var timer = Math.floor((t % (1000 * 60)) / 1000) % 12;
             if (timer < 1) {
-                var word = "EVERYWHERE";
+                var word = "NOONE";
             } else if (timer < 3) {
                 var word = randomness();
             } else if (timer < 4) {
-                var word = "NOWHERE";
+                var word = "EVERYONE";
             } else if (timer < 6) {
                 var word = randomness();
             } else if (timer < 7) {
-                var word = "EVERYONE";
+                var word = "NOWHERE";
             } else if (timer < 9) {
                 var word = randomness();
             } else if (timer < 10) {
-                var word = "NOONE";
+                var word = "EVERYWHERE";
             } else {
                 var word = randomness();
                 }
