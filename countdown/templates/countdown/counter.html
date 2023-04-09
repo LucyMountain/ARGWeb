@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block scripts %}
+
+{% endblock scripts %}
+
+{% block title %}Countdown{% endblock title %}
+
+{% block content %}
+    <video autoplay muted loop id="myVideo">
+    <source src="{% static 'code.mp4' %}" type="video/mp4">
+    </video>
+    <div class="timer">
+    <h1 id="word">Everywhere</h1>
+    <div id="clockdiv">
+      <div>
+        <span class="days" id="day"></span>
+        <div class="smalltext" style="color:#000;">Days</div>
+      </div>
+      <div>
+        <span class="hours" id="hour"></span>
+        <div class="smalltext" style="color:#000;">Hours</div>
+      </div>
+      <div>
+        <span class="minutes" id="minute"></span>
+        <div class="smalltext" style="color:#000;">Minutes</div>
+      </div>
+      <div>
+        <span class="seconds" id="second"></span>
+        <div class="smalltext" style="color:#000;">Seconds</div>
+      </div>
+    </div>
+    </div>
+
+    <p id="demo"></p>
+
+    <script>
+        function randomness() {
+                word = "";
+                const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                for (let i = 0; i < 10; i++) {
+                    word += alphabet[Math.floor(Math.random() * alphabet.length)];
+                }
+                return word;
+            }
+        var deadline = new Date(Date.UTC(2023, 3, 29, 15, 0, 0)).getTime();
+
+        var x = setInterval(function() {
+
+            var now = new Date().getTime();
+            var t = deadline - now;
+            var days = Math.floor(t / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((t % (1000 * 60)) / 1000);
+            document.getElementById("day").innerHTML = days;
+            document.getElementById("hour").innerHTML = hours;
+            document.getElementById("minute").innerHTML = minutes;
+            document.getElementById("second").innerHTML = seconds;
+            var timer = Math.floor((t % (1000 * 60)) / 1000) % 12;
+            if (timer < 1) {
+                var word = "EVERYWHERE";
+            } else if (timer < 3) {
+                var word = randomness();
+            } else if (timer < 4) {
+                var word = "NOWHERE";
+            } else if (timer < 6) {
+                var word = randomness();
+            } else if (timer < 7) {
+                var word = "EVERYONE";
+            } else if (timer < 9) {
+                var word = randomness();
+            } else if (timer < 10) {
+                var word = "NOONE";
+            } else {
+                var word = randomness();
+                }
+            document.getElementById("word").innerHTML = word;
+        if (t < 0) {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = "TIME UP";
+                document.getElementById("day").innerHTML ='0';
+                document.getElementById("hour").innerHTML ='0';
+                document.getElementById("minute").innerHTML ='0' ;
+                document.getElementById("second").innerHTML = '0'; }
+        }, 100);
+    </script>
+{% endblock content %}
