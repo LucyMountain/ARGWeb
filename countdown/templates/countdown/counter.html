@@ -5,7 +5,7 @@
 
 {% endblock scripts %}
 
-{% block title %}Countdown{% endblock title %}
+{% block title %}{% endblock title %}
 
 {% block content %}
     <video autoplay muted loop id="myVideo">
@@ -31,10 +31,8 @@
         <div class="smalltext" style="color:#000;">Seconds</div>
       </div>
     </div>
+        <h2 id="demo"></h2>
     </div>
-
-    <p id="demo"></p>
-
     <script>
         function randomness() {
                 word = "";
@@ -79,11 +77,13 @@
             document.getElementById("word").innerHTML = word;
         if (t < 0) {
                 clearInterval(x);
-                document.getElementById("demo").innerHTML = "TIME UP";
+                document.getElementById("word").innerHTML = "TIME UP";
                 document.getElementById("day").innerHTML ='0';
                 document.getElementById("hour").innerHTML ='0';
                 document.getElementById("minute").innerHTML ='0' ;
-                document.getElementById("second").innerHTML = '0'; }
+                document.getElementById("second").innerHTML = '0';
+                document.getElementById("demo").innerHTML = "Find my Home";
+                };
         }, 100);
     </script>
 {% endblock content %}

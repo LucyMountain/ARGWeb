@@ -69,6 +69,7 @@ else:
 # Application definition
 
 INSTALLED_APPS = [
+    'puzzle2.apps.Puzzle2Config',
     'countdown.apps.CountdownConfig',
     'homepage.apps.HomepageConfig',
     'django.contrib.admin',

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block scripts %}
+
+{% endblock scripts %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+    <img src="{% static 'sigil2.png' %}" class="sigil" onclick="location.href='{% url 'puzzle2:index' %}'">
+{% endblock content %}

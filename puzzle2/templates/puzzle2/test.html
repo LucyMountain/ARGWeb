@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block scripts %}
+
+{% endblock scripts %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+    <video autoplay muted loop id="myVideo">
+    <source src="{% static 'code.mp4' %}" type="video/mp4">
+    </video>
+
+    <p>What was the trail?</p>
+    <br />&nbsp;
+    <form action="{% url 'puzzle2:answer' %}" method="post">
+    {% csrf_token %}
+    <input type="text" id="text_input" name="text_input" class="text-input">
+    <input type="submit" value="Submit" class="button-28">
+    </form>
+{% endblock content %}
