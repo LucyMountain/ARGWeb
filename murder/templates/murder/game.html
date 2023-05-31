@@ -562,6 +562,8 @@ G={
 			G.perksBN[this.name]=this;
 		}
 
+		//todo : claymore, polearm, magic book, knife, childe's hydro sword
+		//todo : dumb, smart, agile, slow, ill
 		G.glob={type:'trait',def:true};
 		new G.perk({name:`no perk`,desc:`No perk selected.`});
 		new G.perk({name:`leader`,desc:`Capable of bringing people together to accomplish great deeds.`});
@@ -583,7 +585,11 @@ G={
 		new G.perk({name:`inventor`,desc:`Can devise strange machines for various purposes.`});
 		new G.perk({name:`goth`,desc:`Channels the dark energies.`});
 		new G.perk({name:`lunatic`,desc:`Susceptible to gain and lose random perks regularly.`});
-		new G.perk({name:`hello chat`,desc:`lollllllllll.`});
+		new G.perk({name:`dumb`,desc:`Pretty much self-explanatory tbf (aka Shade). Most likely to die in a stupid way.`});
+		new G.perk({name:`smart`,desc:`Also pretty much self-explanatory tbf. Better at disarming traps.`});
+		new G.perk({name:`agile`,desc:`Better at dodging and escaping.`});
+		new G.perk({name:`slow`,desc:`Worse at dodging and escaping.`});
+		new G.perk({name:`ill`,desc:`Traits get worse over time.`});
 
 		G.glob={type:'status'};
 			G.glob.disable=true;//mark the character as disabled; disabled characters cannot do any actions that don't specifically call for this perk
@@ -612,6 +618,8 @@ G={
 		new G.perk({name:`ghost`,desc:`Brought back from the dead in a mischievous incorporeal form.`,out:true});
 		new G.perk({name:`zombie`,desc:`Brought back from the dead in a smelly, mindless form.`,out:true});
 		new G.perk({name:`sheep`,desc:`Has been turned into a sheep through some magical mean.`,out:true});
+		new G.perk({name:`burning`,desc:`Has been set of fire and is slowly burning.`});
+		new G.perk({name:`freezing`,desc:`Has been frozen and is slowly dying. Cannot perform any actions.`});
 
 		G.glob={type:'item'};
 			G.glob.def=true;
@@ -631,6 +639,11 @@ G={
 		new G.perk({name:`lasergun`,desc:`Ultra-concentrated energy shots that burn through practically anything.`});
 		new G.perk({name:`magic wand`,desc:`Casts a variety of spells upon your foes.`});
 		new G.perk({name:`ancient scepter`,desc:`Calls forth ancient hexes and curses on your adversaries.`});
+		new G.perk({name:`polearm`,desc:`Long stabby weapon.`});
+		new G.perk({name:`claymore`,desc:`Big sword... like really big.`});
+		new G.perk({name:`knife`,desc:`It's British. I will say nothing more.`});
+		new G.perk({name:`magic book`,desc:`Ability to freeze people or set them on fire.`});
+		new G.perk({name:`blade of the healing tides`,desc:`Hydro totem sword.`});
 
 		new G.perk({name:`pet wolf`,desc:`A ravenous pet wolf to devour your opponents.`});
 		new G.perk({name:`pet tiger`,desc:`A fierce pet tiger to tear your opponents to shreds.`});
@@ -1563,6 +1576,7 @@ G={
 				new G.act(0.5,['inventor','+ scrappy'],`[1] asks [2] if [2:g|he's|she's|they've] found anything useful.`);
 			new G.act(1,['goth'],`[1] [mopes around uselessly|thinks of a dark, dark poem].`);
 			new G.act(1,['lunatic'],`[1] [isn't sure whether to cry, laugh, or tear [1:their] hair out|is looking particularly erratic today].`);
+			new G.act(1,['dumb'],`[1] [trips over a rock|falls into a bush].`);
 
 			new G.act(1,['survivalist|sociopath alive:1 dead:>0'],`[1] [always knew [1:they]'d be the last to survive|made it out alive, it seems].`);
 			new G.act(1,['devious alive:1 dead:>0'],`[1] is glad [1:they] made it out alive.`);
@@ -1587,6 +1601,10 @@ G={
 			new G.act(1,['lasergun !peaceful'],`[1] feels unstoppable with [1:their] lasergun.`);
 			new G.act(1,['magic_wand'],`[1] waves [1:their] magic wand around, sending sparkles everywhere.`);
 			new G.act(1,['ancient_scepter'],`[1] polishes [1:their] ancient scepter, making the magic orb shine.`);
+			new G.act(1,['polearm'],`[1] swooshes the air with [1:their] polarm things.`); //todo : polearm idle
+				new G.act(0.7,['polearm survivalist'],`[1] catches a fish on[1:their] polarm.`);
+			new G.act(1,['claymore !peaceful'],`[1] sharpens [1:their] claymore.`); //todo : claymore idle
+			new G.act(1,['knife !peaceful'],`[1] practices uses [1:their] knife to prepare food.`); //todo : knife idle
 
 			new G.act(1,['pet_wolf'],`[[1] pets [1:their] pet wolf to soothe him.|[1]'s pet wolf licks [1:their] [ear|cheek|face]!|[1] teaches [1:their] pet wolf a trick.|[1]'s pet wolf growls contentedly.]`);
 				new G.act(0.05,['dead pet_wolf'],`[1]'s pet wolf lets out a sad howl...`);
@@ -1633,6 +1651,8 @@ G={
 			new G.act(itemFindMult*0.01,['!magic_wand'],`[BLUE][1] follows some sparkles and discovers a magic wand!<br>Hopefully it still has some spells left in it...`,p=>{p[1].gain('magic wand');});
 			new G.act(itemFindMult*0.01,['!ancient_scepter'],`[BLUE][1] catches a strange glow in the corner of [1:their] eye and discovers an ancient scepter!<br>Arcane magic courses through [1:their] body as [1:their] fingers touch the carved wood.`,p=>{p[1].gain('ancient scepter');});
 			new G.act(itemFindMult*0.01,['!wish_ring'],`[BLUE][1] was lost in [1:their] thoughts... The next thing [1:g|he knows|she knows|they know], [1:g|he's|she's|they've] found a wish ring.<br>Hopefully [1:they]'ll be responsible with it.`,p=>{p[1].gain('wish ring');});
+			new G.act(itemFindMult*0.01,['!polearm !peaceful'],`[BLUE][1] finds a polearm.<br>Stab stab!`,p=>{p[1].gain('polearm');}); //todo : polearm find
+			new G.act(itemFindMult*0.01,['!claymore !peaceful'],`[BLUE][1] finds a claymore.<br>Hello chat...`,p=>{p[1].gain('claymore');}); //todo : claymore find
 
 			//todo : scrappy, rich, inventor
 
@@ -1708,6 +1728,8 @@ G={
 			new G.act(0.7,[coldBloodKiller+' ancient_scepter','- any'],`[RED][1] calls arcane fury down on [2], [1:their] ancient scepter beaming with an inner rage.<br>[[2] combusts into thousands of firey butterflies...|[2] vaporizes into a minty purple mist...|[2] grimaces, then starts bubbling violently, before melting into the ground.|For a second, nothing happens. [2] opens [2:their] mouth to say something, then starts peeling away, layer by layer.|At first, it seems nothing happened, until a light breeze blows [2] away like a pile of old dust.|[2] quivers strangely, then starts getting taller and taller, and thinner and thinner, until [2:g|he becomes just a line and disappears|she becomes just a line and disappears|they become just a line and disappear].]`,p=>{p[1].kill(p[2],`ancient scepter`);});
 				new G.act(0.5,[coldBloodKiller+' ancient_scepter','- ancient_scepter !peaceful'],`[RED][1] and [2] have a merciless magic duel with their ancient scepters!<br>Sparks and bolts fly every which way, until both opponents suddenly bulge out and explode in a puff of acrid smoke.`,p=>{p[1].kill(p[2],`magic duel`);p[2].kill(p[1],`magic duel`);});
 				new G.act(0.5,[coldBloodKiller+' !ancient_scepter magic_wand','- ancient_scepter !peaceful'],`[RED][1] challenges [2] to a magic duel with [1:their] magic wand!<br>Unfortunately for [1:them], [2] has an ancient scepter, and after a few colorful puffs and sparks, there's not much left of [1].`,p=>{p[2].kill(p[1],`magic duel`);});
+			new G.act(0.7,[coldBloodKiller+' ancient_scepter','- any'],`[RED][1] calls arcane fury down on [2], [1:their] ancient scepter beaming with an inner rage.<br>[[2] combusts into thousands of firey butterflies...|[2] vaporizes into a minty purple mist...|[2] grimaces, then starts bubbling violently, before melting into the ground.|For a second, nothing happens. [2] opens [2:their] mouth to say something, then starts peeling away, layer by layer.|At first, it seems nothing happened, until a light breeze blows [2] away like a pile of old dust.|[2] quivers strangely, then starts getting taller and taller, and thinner and thinner, until [2:g|he becomes just a line and disappears|she becomes just a line and disappears|they become just a line and disappear].]`,p=>{p[1].kill(p[2],`ancient scepter`);});
+			new G.act(0.4,[coldBloodKiller+' polearm','- any'],`[RED][1] stabs [2] to death with [1:their] stabber!`,p=>{p[1].kill(p[2],`polearm`);});
 
 			new G.act(0.2,[coldBloodKiller+' wish_ring','- any'],`[RED][1] wishes [2] would disappear... [1:g|His|Her|Their] wish ring shimmers for a second, and then -<br>...nobody seems to remember [2] ever existed at all.`,p=>{p[1].kill(p[2],`ceased to exist`);});
 			new G.act(0.1,['naive|peaceful|meek wish_ring'],`[RED][1] wishes [1:g|he wasn't|she wasn't|they weren't] here... [1:g|His|Her|Their] wish ring shimmers for a second, and then -<br>...nobody seems to remember [1] ever existed at all.`,p=>{p[1].kill(p[1],`ceased to exist`);});
