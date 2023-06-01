@@ -224,8 +224,8 @@ G={
 		new G.perk({name:`inventor`,desc:`Can devise strange machines for various purposes.`});
 		new G.perk({name:`goth`,desc:`Channels the dark energies.`});
 		new G.perk({name:`lunatic`,desc:`Susceptible to gain and lose random perks regularly.`});
-		//new G.perk({name:`dumb`,desc:`Pretty much self-explanatory tbf (aka Shade). Most likely to die in a stupid way.`}); todo
-		//new G.perk({name:`smart`,desc:`Also pretty much self-explanatory tbf. Better at disarming traps.`}); todo
+		new G.perk({name:`dumb`,desc:`Pretty much self-explanatory tbf. Most likely to die in a stupid way.`}); todo
+		new G.perk({name:`smart`,desc:`Also pretty much self-explanatory tbf. Better at disarming traps.`}); todo
 		//new G.perk({name:`agile`,desc:`Better at dodging and escaping.`}); todo
 		//new G.perk({name:`slow`,desc:`Worse at dodging and escaping.`}); todo
 		//new G.perk({name:`ill`,desc:`Traits get worse over time.`}); todo
@@ -1211,11 +1211,13 @@ G={
 			new G.act(1,['survivalist deaths:0'],`[1] [came prepared|could get used to this place].`);
 				new G.act(1,['survivalist deaths:>0'],`[1] [is determined to survive this|won't die like the others|won't give up so easily].`);
 			new G.act(1,['rich'],`[1] [feels protected by [1:their] wealth|finds all this below his concern].`);
-			new G.act(1,['inventor'],`[1] [is thinking of plans to get out of here|is cooking up a genius idea].`);
+			new G.act(1,['inventor|smart'],`[1] [is thinking of plans to get out of here|is cooking up a genius idea].`);
 				new G.act(0.5,['inventor','+ scrappy'],`[1] asks [2] if [2:g|he's|she's|they've] found anything useful.`);
 			new G.act(1,['goth'],`[1] [mopes around uselessly|thinks of a dark, dark poem].`);
 			new G.act(1,['lunatic'],`[1] [isn't sure whether to cry, laugh, or tear [1:their] hair out|is looking particularly erratic today].`);
 			new G.act(1,['dumb'],`[1] [trips over a rock|falls into a bush].`);
+			new G.act(0.5,['smart'],`[1] reads some pages of a book they found.`);
+				new G.act(0.5,['survivalist|smart'],`[1] finds a shelter to rest in.`);
 
 			new G.act(1,['survivalist|sociopath alive:1 dead:>0'],`[1] [always knew [1:they]'d be the last to survive|made it out alive, it seems].`);
 			new G.act(1,['devious alive:1 dead:>0'],`[1] is glad [1:they] made it out alive.`);
@@ -1244,7 +1246,15 @@ G={
 				new G.act(0.7,['polearm survivalist'],`[1] catches a fish on the end of [1:their] polarm.`);
 			new G.act(1,['claymore !bulky'],`[1] has to take a break from carrying [1:their] claymore.`);
 			new G.act(1,['knife !peaceful'],`[1] sharpens [1:their] knife.`);
-			new G.act(1,['blade of the healing tides'],`[1] swooshes the air with [1:their] blade of the healing tides, sending water everywhere.`);
+			new G.act(1,['blade_of_the_healing_tides !peaceful'],`[1] swooshes the air with [1:their] blade of the healing tides, sending water everywhere.`);
+
+			//dumb item-related idling todo
+			new G.act(0.2,['sword|pitchfork|polearm|claymore|knife|blade_of_the_healing_tides dumb'],`[1] trips over a [rock|branch] and gets up to find [1:they] stabbed [1:g|himself|herself|themself] in the [leg|foot|stomach].<br>[1:g|He is|She is|They are] now bleeding out.`,p=>{p[1].gain('bleeding out');});
+			new G.act(0.2,['handgun|shotgun|lasergun dumb'],`[1] accidentally pulls the trigger while cleaning [1:their] gun, shooting [1:g|himself|herself|themself] in the [leg|foot|stomach].<br>[1:g|He is|She is|They are] now bleeding out.`,p=>{p[1].gain('bleeding out');});
+				new G.act(0.1,['handgun dumb'],`[1] accidentally pulls the trigger while cleaning [1:their] handgun, shooting [1:g|himself|herself|themself] in the [head|chest].<br>[1:g|He falls|She falls|They fall] over dead.`,p=>{p[1].die(`handgun`);});
+				new G.act(0.1,['shotgun dumb'],`[1] accidentally pulls the trigger while cleaning [1:their] shotgun, shooting [1:g|himself|herself|themself] in the [head|chest].<br>[1:g|He falls|She falls|They fall] over dead.`,p=>{p[1].die(`shotgun`);});
+				new G.act(0.1,['lasergun dumb'],`[1] accidentally pulls the trigger while cleaning [1:their] lasergun, shooting [1:g|himself|herself|themself] in the [head|chest].<br>[1:g|He falls|She falls|They fall] over dead.`,p=>{p[1].die(`lasergun`);});
+			new G.act(0.1,['grenade dumb'],`[1] drops [1:their] grenade in an attempt to juggle. It hits the ground and explodes, killing [1:them]!`,p=>{p[1].die(`grenade`);});
 
 			new G.act(1,['pet_wolf'],`[[1] pets [1:their] pet wolf to soothe him.|[1]'s pet wolf licks [1:their] [ear|cheek|face]!|[1] teaches [1:their] pet wolf a trick.|[1]'s pet wolf growls contentedly.]`);
 				new G.act(0.05,['dead pet_wolf'],`[1]'s pet wolf lets out a sad howl...`);
@@ -1414,12 +1424,14 @@ G={
 				new G.act(0.1,['!suicidal !survivalist|sociopath alive:1'],`[RED]There's nobody left except for [1]. What a bleak existence...<br>[1] is feeling suicidal.`,p=>{p[1].gain('suicidal');});
 
 			new G.act(0.5,['survivalist !set_trap'],`[1] sets down a trap.`,p=>{p[1].gain('set trap');});
-				new G.act(0.5,['!survivalist','set_trap'],`[RED][1] gets caught in one of [2]'s traps!<br>All [1:they] can do now is hope to be freed...`,p=>{p[2].lose('set trap');p[1].gain('trapped');});
-				new G.act(0.1,['!survivalist','set_trap'],`[RED][1] gets caught in one of [2]'s traps... What a stupid mistake! [1:g|He|She|They] should have known better.<br>All [1:they] can do now is hope to be freed...`,p=>{p[2].lose('set trap');p[1].gain('trapped');});
-				new G.act(0.5,['survivalist','- set_trap'],`[1] is smart enough to disarm one of [2]'s traps.`,p=>{p[2].lose('set trap');});
+				new G.act(0.9,['!survivalist dumb','set_trap'],`[RED][1] falls into one of [2]'s traps!<br>All [1:they] can do now is hope to be freed...`,p=>{p[2].lose('set trap');p[1].gain('trapped');});
+				new G.act(0.1,['!survivalist !smart','set_trap'],`[RED][1] gets caught in one of [2]'s traps... What a stupid mistake! [1:g|He|She|They] should have known better.<br>All [1:they] can do now is hope to be freed...`,p=>{p[2].lose('set trap');p[1].gain('trapped');});
+				new G.act(0.5,['survivalist|smart','- set_trap'],`[1] is smart enough to disarm one of [2]'s traps.`,p=>{p[2].lose('set trap');});
 				new G.act(1,['trapped !bleeding_out any'],`[Still caught in the trap, [1] lays there, moping.|[1], still trapped, screams for help, but nobody answers...|[1] is still caught in the trap...|[1] is trapped and can't do anything.]`);
 				new G.act(0.6,['trapped !bleeding_out any'],`[RED][1] was struggling in the trap and cut [1:themself] pretty bad.<br>[1] is now bleeding out!`,p=>{p[1].gain('bleeding out');});
 				new G.act(1,['trapped bleeding_out any'],`[1] is trapped and slowly bleeding out...`);
+				new G.act(1,['bleeding_out dumb'],`[1] can't work out how to stop the bleeding...`);
+				new G.act(1,['bleeding_out smart'],`[1] manages to cover [1:their] wound and stop the bleeding.`,p=>{p[1].lose('bleeding_out');});
 				new G.act(0.5,['trapped bleeding_out any'],`[RED][1] finally dies from blood loss caused by the trap [1:g|he was|she was|they were] stuck in.`,p=>{p[1].die(`bled out in trap`);});
 				new G.act(0.3,['!devious|survivalist','+ trapped any'],`[BLUE][1] finds [2] caught in a trap, and manages to free [2:them].`,p=>{p[2].lose('trapped');});
 				new G.act(0.3,['!devious|survivalist peaceful|kind','- trapped any'],`[BLUE][1] feels sorry for [2] and frees [2:them] from the trap.`,p=>{p[2].lose('trapped');});
@@ -1448,8 +1460,9 @@ G={
 			new G.act(0.4,['!peaceful|kind pet_turtle','-'],`[RED][1] sics [1:their] pet turtle on [2]!<br>[2] gets stomped to bits. [2:g|He|She|They] never saw it coming...`,p=>{p[1].kill(p[2],`pet turtle`);});
 
 			//accidents happen
-			new G.act(0.1,['!survivalist any'],`[RED][1] [kind of wanders off and gets lost, never to be seen again.|wasn't looking and fell off a cliff...|eats something [1:they] shouldn't have and dies of horrible stomach pains.|gets mauled by wild animals.|trips and falls in a really bad way, breaking [1:their] neck.]`,p=>{p[1].die(`accident`);});
-			new G.act(0.05,['survivalist any'],`[RED][1] gets cocky and ends up dying from a stupid mistake.`,p=>{p[1].die(`stupid mistake`);});
+			new G.act(0.4,['!survivalist dumb any'],`[RED][1] [kind of wanders off and gets lost, never to be seen again.|wasn't looking and fell off a cliff...|eats something [1:they] shouldn't have and dies of horrible stomach pains.|gets mauled by wild animals.|trips and falls in a really bad way, breaking [1:their] neck.]`,p=>{p[1].die(`accident`);});
+			new G.act(0.1,['!survivalist !smart any'],`[RED][1] [kind of wanders off and gets lost, never to be seen again.|wasn't looking and fell off a cliff...|eats something [1:they] shouldn't have and dies of horrible stomach pains.|gets mauled by wild animals.|trips and falls in a really bad way, breaking [1:their] neck.]`,p=>{p[1].die(`accident`);});
+			new G.act(0.05,['survivalist !smart any'],`[RED][1] gets cocky and ends up dying from a stupid mistake.`,p=>{p[1].die(`stupid mistake`);});
 
 			new G.act(0.05,['dead'],`[The [pile of flesh that used to be|dead husk of] [1]|[1]'s [corpse|lifeless body]] [[rots|festers|desiccates|decays|putrefies|decomposes] [peacefully|silently]|writhes with maggots].`);
 
