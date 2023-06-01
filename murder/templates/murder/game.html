@@ -1251,10 +1251,10 @@ G={
 			//dumb item-related idling todo
 			new G.act(0.2,['sword|pitchfork|polearm|claymore|knife|blade_of_the_healing_tides dumb'],`[1] trips over a [rock|branch] and gets up to find [1:they] stabbed [1:g|himself|herself|themself] in the [leg|foot|stomach].<br>[1:g|He is|She is|They are] now bleeding out.`,p=>{p[1].gain('bleeding out');});
 			new G.act(0.2,['handgun|shotgun|lasergun dumb'],`[1] accidentally pulls the trigger while cleaning [1:their] gun, shooting [1:g|himself|herself|themself] in the [leg|foot|stomach].<br>[1:g|He is|She is|They are] now bleeding out.`,p=>{p[1].gain('bleeding out');});
-				new G.act(0.1,['handgun dumb'],`[1] accidentally pulls the trigger while cleaning [1:their] handgun, shooting [1:g|himself|herself|themself] in the [head|chest].<br>[1:g|He falls|She falls|They fall] over dead.`,p=>{p[1].die(`handgun`);});
-				new G.act(0.1,['shotgun dumb'],`[1] accidentally pulls the trigger while cleaning [1:their] shotgun, shooting [1:g|himself|herself|themself] in the [head|chest].<br>[1:g|He falls|She falls|They fall] over dead.`,p=>{p[1].die(`shotgun`);});
-				new G.act(0.1,['lasergun dumb'],`[1] accidentally pulls the trigger while cleaning [1:their] lasergun, shooting [1:g|himself|herself|themself] in the [head|chest].<br>[1:g|He falls|She falls|They fall] over dead.`,p=>{p[1].die(`lasergun`);});
-			new G.act(0.1,['grenade dumb'],`[1] drops [1:their] grenade in an attempt to juggle. It hits the ground and explodes, killing [1:them]!`,p=>{p[1].die(`grenade`);});
+				new G.act(0.1,['handgun dumb'],`[RED][1] accidentally pulls the trigger while cleaning [1:their] handgun, shooting [1:g|himself|herself|themself] in the [head|chest].<br>[1:g|He falls|She falls|They fall] over dead.`,p=>{p[1].die(`handgun`);});
+				new G.act(0.1,['shotgun dumb'],`[RED][1] accidentally pulls the trigger while cleaning [1:their] shotgun, shooting [1:g|himself|herself|themself] in the [head|chest].<br>[1:g|He falls|She falls|They fall] over dead.`,p=>{p[1].die(`shotgun`);});
+				new G.act(0.1,['lasergun dumb'],`[RED][1] accidentally pulls the trigger while cleaning [1:their] lasergun, shooting [1:g|himself|herself|themself] in the [head|chest].<br>[1:g|He falls|She falls|They fall] over dead.`,p=>{p[1].die(`lasergun`);});
+			new G.act(0.1,['grenade dumb'],`[RED][1] drops [1:their] grenade in an attempt to juggle. It hits the ground and explodes, killing [1:them]!`,p=>{p[1].die(`grenade`);});
 
 			new G.act(1,['pet_wolf'],`[[1] pets [1:their] pet wolf to soothe him.|[1]'s pet wolf licks [1:their] [ear|cheek|face]!|[1] teaches [1:their] pet wolf a trick.|[1]'s pet wolf growls contentedly.]`);
 				new G.act(0.05,['dead pet_wolf'],`[1]'s pet wolf lets out a sad howl...`);
